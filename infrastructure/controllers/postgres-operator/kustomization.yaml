@@ -2,6 +2,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - namespace.yaml
+  - https://github.com/zalando/postgres-operator/raw/refs/heads/master/charts/postgres-operator/crds/operatorconfigurations.yaml
+  - https://github.com/zalando/postgres-operator/raw/refs/heads/master/charts/postgres-operator/crds/postgresqls.yaml
+  - https://github.com/zalando/postgres-operator/raw/refs/heads/master/charts/postgres-operator/crds/postgresteams.yaml
 helmCharts:
   - name: postgres-operator
     repo: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
