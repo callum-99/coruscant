@@ -1,0 +1,3 @@
+# watch every namespace
+configKubernetes:
+  watch_namespace: "*"
