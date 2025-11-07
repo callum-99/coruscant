@@ -59,3 +59,7 @@ longhornDriver:
 
 ingress:
   enabled: false
+
+metrics:
+  serviceMonitor:
+    enabled: true
