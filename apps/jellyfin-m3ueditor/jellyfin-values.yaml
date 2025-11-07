@@ -9,3 +9,19 @@ ingress:
 service:
   type: ClusterIP
   port: 8096
+
+resources:
+  limits:
+    gpu.intel.com/i915: 1
+
+extraVolumeMounts:
+  - name: dri
+    mountPath: /dev/dri
+
+extraVolumes:
+  - name: dri
+    hostPath: /dev/dri
+
+env:
+  - name: JELLYFIN_FFmpeg_EnableHardwareEncoding
+    value: "true"
