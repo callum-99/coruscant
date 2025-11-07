@@ -25,7 +25,7 @@ spec:
         - name: TZ
           value: "Europe/London"
         - name: APP_URL
-          value: "https://m3u-editor.coruscant.yarnold.co.uk"
+          value: "http://m3u-editor.media.svc.cluster.local:36400"
         - name: ENABLE_POSTGRES
           value: "true"
         - name: PG_DATABASE
