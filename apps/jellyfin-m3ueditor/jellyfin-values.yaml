@@ -1,0 +1,11 @@
+persistence:
+  config:
+    enabled: true
+    existingClaim: jellyfin-data
+  media:
+    enabled: false
+ingress:
+  enabled: false
+service:
+  type: ClusterIP
+  port: 8096

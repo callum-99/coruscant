@@ -1,0 +1,25 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: m3u-editor-db
+  namespace: media
+spec:
+  teamId: "media"
+  postgresql:
+    version: "15"
+  numberOfInstances: 2
+  volume:
+    size: 5Gi
+    storageClass: longhorn
+  users:
+    m3ue: []
+  databases:
+    m3uedb: m3ue
+  resources:
+    requests:
+      cpu: 100m
+      memory: 100Mi
+    limits:
+      cpu: 500m
+      memory: 500Mi
+

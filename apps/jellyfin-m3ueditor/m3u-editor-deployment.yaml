@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: m3u-editor
+  namespace: media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: m3u-editor
+  template:
+    metadata:
+      labels:
+        app: m3u-editor
+    spec:
+      containers:
+      - name: m3u-editor
+        image: sparkison/m3u-editor:latest
+        ports:
+        - containerPort: 36400
+          name: http
+        - containerPort: 36800
+          name: ws
+        env:
+        - name: TZ
+          value: "Europe/London"
+        - name: APP_URL
+          value: "https://m3u-editor.coruscant.yarnold.co.uk"
+        - name: ENABLE_POSTGRES
+          value: "true"
+        - name: PG_DATABASE
+          value: "m3uedb"
+        - name: PG_USER
+          value: "m3ue"
+        - name: PG_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: m3ue.m3u-editor-db.credentials.postgresql.acid.zalan.do
+              key: password
+        - name: PG_PORT
+          value: "5432"
+        - name: DB_CONNECTION
+          value: "pgsql"
+        - name: DB_HOST
+          value: "m3u-editor-db"
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_DATABASE
+          value: "m3uedb"
+        - name: DB_USERNAME
+          value: "m3ue"
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: m3ue.m3u-editor-db.credentials.postgresql.acid.zalan.do
+              key: password
+        volumeMounts:
+        - name: config
+          mountPath: /var/www/config
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: m3u-editor-config
+
