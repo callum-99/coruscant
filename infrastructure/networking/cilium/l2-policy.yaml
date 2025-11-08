@@ -6,10 +6,5 @@ metadata:
 spec:
   interfaces:
     - eno.*
-    - eth.*
-    - enp.*
-    - ens.*
-    - wlan.*
-    - wlp.*
   loadBalancerIPs: true
   externalIPs: true
