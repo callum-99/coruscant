@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: anki-sync-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: anki-sync-server
+  template:
+    metadata:
+      labels:
+        app: anki-sync-server
+    spec:
+      containers:
+      - name: anki-sync-server
+        image: ghcr.io/z0rrn/anki-sync-server:25.09.2
+        ports:
+        - containerPort: 27701
+        env:
+        - name: SYNC_USER1
+          valueFrom:
+            secretKeyRef:
+              name: anki-sync-creds
+              key: user1
+        - name: SYNC_BASE
+          value: "/base"
+        - name: MAX_SYNC_PAYLOAD_MEGS
+          value: "512"
+        volumeMounts:
+        - name: anki-data
+          mountPath: /data
+      volumes:
+        - name: anki-data
+          persistentVolumeClaim:
+            claimName: anki-sync-server-pvc
